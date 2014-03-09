@@ -1,0 +1,40 @@
+
+<div class="ng-cloak">
+    <div class="sort-links">
+        <p class="text-muted">&nbsp; <span>Note: Rearranging tasks is
+        disabled when sorting by due date.</span></p>
+
+        <p>sort by: <a href="">priority</a> | <a href="">due date</a></p>
+    </div>
+
+    <div class="panel panel-info task-list">
+        <div class="panel-heading"></div>
+
+        <form id="new_task" name="new_task">
+            <div class="input-group">
+                <input autofocus="autofocus" class="form-control input-lg"
+                data-non-blank="" id="taskDescription" maxlength="255"
+                placeholder="Task description" type="text"><span class=
+                "input-group-btn"><button class="btn btn-primary btn-lg"
+                type="submit"><span class=
+                "input-group-btn">add</span></button></span>
+            </div>
+        </form>
+
+        <ul class="list-group">
+            <li class="list-group-item">
+                <div class="task-completed">
+                    <input type="checkbox">
+                </div>
+
+                <div class="task-description"></div>
+
+                <div class="task-buttons pull-right"></div>
+
+                <div class="task-due-date">
+                    <small>Due date: {{task.due_date}}</small>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
