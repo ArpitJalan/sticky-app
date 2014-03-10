@@ -15,7 +15,7 @@ class Api::SessionsController < Devise::SessionsController
 
   private
 
-  def warden_authenticate
-    self.resource = warden.authenticate!(auth_options)
-  end
+    def warden_authenticate
+      self.resource = warden.authenticate!(auth_options)
+    end
 end

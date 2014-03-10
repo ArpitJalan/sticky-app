@@ -1,4 +1,4 @@
-<div class="ng-cloak" ng-init="init()">
+<div ng-init="init()" class="ng-cloak">
 
   <div class="panel panel-default dashboard-list">
     <div class="panel-heading"><h4>Your lists</h4></div>
@@ -8,7 +8,7 @@
 
     <ul class="list-group">
       <li class="list-group-item" ng-repeat="list in lists">
-        <button class="btn btn-danger btn-xs pull-right" ng-click="deleteList(list, $index)" type="button"><span class="glyphicon glyphicon-ban-circle"></span></button><a href="/task_lists/{{list.id}}"> {{list.name}} ({{list.tasks.length}}) </a>
+        <a href="/task_lists/{{list.id}}"> {{list.name}} ({{list.tasks.length}}) </a><button class="button tiny alert" ng-click="deleteList(list, $index)" type="button"></button>
       </li>
     </ul>
   </div>

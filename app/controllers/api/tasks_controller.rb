@@ -21,19 +21,19 @@ class Api::TasksController < Api::BaseController
   end
 
   private
-  def task_list
-    @task_list ||= TaskList.find(params[:task_list_id])
-  end
+    def task_list
+      @task_list ||= TaskList.find(params[:task_list_id])
+    end
 
-  def task
-    @task ||= task_list.tasks.find(params[:id])
-  end
+    def task
+      @task ||= task_list.tasks.find(params[:id])
+    end
 
-  def safe_params
-    params.require(:task).permit(:description, :target_priority, :completed, :due_date)
-  end
+    def safe_params
+      params.require(:task).permit(:description, :target_priority, :completed, :due_date)
+    end
 
-  def check_owner
-    permission_denied if current_user != task_list.owner
-  end
+    def check_owner
+      permission_denied if current_user != task_list.owner
+    end
 end

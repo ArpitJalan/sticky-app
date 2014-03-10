@@ -1,40 +1,56 @@
-
-<div class="ng-cloak">
+<div ng-init="init()" class="ng-scope">
     <div class="sort-links">
-        <p class="text-muted">&nbsp; <span>Note: Rearranging tasks is
-        disabled when sorting by due date.</span></p>
-
-        <p>sort by: <a href="">priority</a> | <a href="">due date</a></p>
+      <p class="text-muted">
+        &nbsp;
+        <span ng-show="sortMethod == dueDateNullLast" style="display: none;">
+          Note: Rearranging tasks is disabled when sorting by due date.
+        </span>
+      </p>
+      <p>
+        sort by:
+        <a ng-click="changeSortMethod('priority')" ng-class="{active: sortMethod == 'priority'}" href="" class="active">
+          priority
+        </a>
+        |
+        <a ng-click="changeSortMethod(dueDateNullLast)" ng-class="{active: sortMethod == dueDateNullLast}" href="">
+          due date
+        </a>
+      </p>
     </div>
 
     <div class="panel panel-info task-list">
         <div class="panel-heading"></div>
 
-        <form id="new_task" name="new_task">
-            <div class="input-group">
-                <input autofocus="autofocus" class="form-control input-lg"
-                data-non-blank="" id="taskDescription" maxlength="255"
-                placeholder="Task description" type="text"><span class=
-                "input-group-btn"><button class="btn btn-primary btn-lg"
-                type="submit"><span class=
-                "input-group-btn">add</span></button></span>
-            </div>
+        <form ng-submit="addTask()" id="new_task" class="ng-pristine ng-valid">
+          <div class="input-group">
+            <input type="text" placeholder="Task description" ng-model="taskDescription" maxlength="255" id="taskDescription" data-non-blank="" class="form-control input-lg ng-pristine ng-valid" autofocus="autofocus" required="">
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-primary btn-lg">
+                add
+              </button>
+            </span>
+          </div>
         </form>
 
-        <ul class="list-group">
-            <li class="list-group-item">
+        <ul ui-sortable-ext="sortableEnabled" ui-sortable="sortableOptions" ng-model="list.tasks" class="list-group ng-pristine ng-valid ui-sortable">
+            <li ng-repeat="task in list.tasks | orderBy:sortMethod" ng-class="{completed: task.completed, draggable: sortMethod == 'priority'}" class="list-group-item ng-scope draggable">
                 <div class="task-completed">
-                    <input type="checkbox">
+                    <input type="checkbox" ng-model="task.completed" ng-change="toggleTask(task)">
                 </div>
 
-                <div class="task-description"></div>
+                <div class="task-description">{{task.description}}</div>
 
-                <div class="task-buttons pull-right"></div>
+                <div class="task-buttons pull-right">
+                  <button type="button" ng-click="deleteTask(task)" class="btn btn-danger btn-xs pull-right"></button>
+                  <div class="calendar-button" on-change="dueDatePicked(task)" model="task.due_date"><button type="button" class="btn btn-info btn-xs pull-right ng-scope"></button></div>
+                  <input type="text" style="width: 0px; height: 0px; opacity: 0; position: relative; top: -15px;" id="dp1394447644511" class="hasDatepicker">
+                </div>
 
                 <div class="task-due-date">
-                    <small>Due date: {{task.due_date}}</small>
+                    <small class="ng-binding">Due date: {{task.due_date}}</small>
                 </div>
             </li>
         </ul>
+
     </div>
 </div>
